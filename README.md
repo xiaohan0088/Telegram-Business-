@@ -1,6 +1,7 @@
 <div align="center">
-  <h1>🤖 机器人 · Business 模式</h1>
+  <h1>🤖 TeleGram · Business </h1>
   <p><strong>⚠️ 机器人需要开启 Business mode</strong></p>
+  <p><strong>⚠️ 机器人的所有人需要已激活 telegram Premium</strong></p>
 </div>
 
 <hr />
@@ -10,6 +11,9 @@
 python-telegram-bot==22.6
 aiohttp==3.11.11
 httpx==0.28.1</code></pre>
+
+<h3>🚀 启动命令</h3>
+<pre><code>python main.py</code></pre>
 
 <h3>✨ 已有功能</h3>
 <ul>
