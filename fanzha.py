@@ -13,11 +13,9 @@ async def check_fanzha_logic(user_id, chat_name, chat_id, context, admin_id, con
             async with session.get(url, timeout=10) as resp:
                 raw_text = await resp.text()
         
-        # 记录已检测，无论是否中奖，下次都不再查
         database.mark_fanzha_checked(user_id)
 
         if "⚠️本用户为诈骗犯⚠️" in raw_text:
-            # 提取记录条数
             count_match = re.search(r"有 (\d+) 条反诈记录", raw_text)
             count_str = count_match.group(1) if count_match else "多"
             

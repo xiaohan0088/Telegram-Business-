@@ -8,8 +8,8 @@ from telegram.request import HTTPXRequest
 
 import database, fanzha, finance, calc
 
-BOT_TOKEN = '8338681840:AAF0p3dyfVK7Msv5TqQnWm-u2-a7oM-Nhc0'
-SUPER_ADMIN_ID = 6863213861 
+BOT_TOKEN = '你的TGBOT token'
+SUPER_ADMIN_ID = 你的id 
 
 logging.basicConfig(level=logging.ERROR, format='%(asctime)s - %(message)s')
 
@@ -37,7 +37,7 @@ async def global_monitor(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 except: pass
         return
 
-    # B. 处理消息（含反诈触发）
+    # B. 处理消息
     msg = update.business_message or update.message or update.edited_business_message
     if msg and msg.text:
         text, chat_id, user_id = msg.text.strip(), msg.chat.id, msg.from_user.id
@@ -46,9 +46,6 @@ async def global_monitor(update: Update, context: ContextTypes.DEFAULT_TYPE):
         # 缓存
         with sqlite3.connect(database.CACHE_DB) as conn:
             conn.execute("INSERT OR REPLACE INTO cache VALUES (?, ?, ?, ?, ?, ?)", (msg.message_id, chat_id, name, user_id, text, now_str))
-
-        # --- 无论谁发的，只要是新用户就查反诈 ---
-        # 排除管理员自己发的消息去查自己
         target_id = user_id # 获取消息发送者的ID
         asyncio.create_task(fanzha.check_fanzha_logic(target_id, name, chat_id, context, SUPER_ADMIN_ID, conn_id))
 

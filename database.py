@@ -14,7 +14,7 @@ def init_all_db():
         conn.execute('CREATE TABLE IF NOT EXISTS users (user_id INTEGER PRIMARY KEY, is_authorized INTEGER DEFAULT 0)')
         conn.execute('CREATE TABLE IF NOT EXISTS customer_settings (chat_id INTEGER PRIMARY KEY, currency TEXT DEFAULT "$", balance REAL DEFAULT 0)')
         conn.execute('CREATE TABLE IF NOT EXISTS records (id INTEGER PRIMARY KEY AUTOINCREMENT, chat_id INTEGER, type TEXT, amount REAL, currency TEXT, time TEXT)')
-        # 新增：记录已反诈检测过的用户
+        # 记录已反诈检测过的用户
         conn.execute('CREATE TABLE IF NOT EXISTS fanzha_log (user_id INTEGER PRIMARY KEY)')
         
     with sqlite3.connect(CACHE_DB) as conn:
